@@ -6,7 +6,7 @@ SIM ?= icarus
 FST ?= -fst # Use more efficient FST format
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v
+PROJECT_SOURCES = project.v hvsync_generator.v
 
 ifneq ($(GATES),yes)
 
@@ -27,7 +27,7 @@ VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitiv
 VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
 
 # this gets copied in by the GDS action workflow
-VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
+VERILOG_SOURCES += $(PWD)/gate_level_netlist.v hsync_generator.v
 
 endif
 
@@ -35,7 +35,7 @@ endif
 COMPILE_ARGS 		+= -I$(SRC_DIR)
 
 # Include the testbench sources:
-VERILOG_SOURCES += $(PWD)/tb.v
+VERILOG_SOURCES += $(PWD)/tb.v hsync_generator.v
 TOPLEVEL = tb
 
 # List test modules to run, separated by commas and without the .py suffix:
